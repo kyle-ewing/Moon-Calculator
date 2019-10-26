@@ -8,9 +8,8 @@ using MoonCalculator.Models;
 
 namespace MoonCalculator.Controllers
 {
-    [Route("")]
-    public class HomeController : Controller
-    {
+    [Route("Moon")]
+    public class MoonController : Controller {
         [HttpGet("")]
         public IActionResult Index()
         {
@@ -20,7 +19,18 @@ namespace MoonCalculator.Controllers
         [HttpPost("submit")]
         public IActionResult ScanSubmit(string raw_input) {
             Console.WriteLine(raw_input);
-            return Redirect("moon-results");
+
+            // Dictionary<string, Moon> moonInfo = new Dictionary<string, Moon>();
+
+            //raw_input = raw_input.Remove(0,69);
+
+            // while(raw_input.IndexOf("	") >= 0) {
+            //     raw_input = raw_input.Replace("	", "  ");
+            // }
+
+            // string[] initDelimit = raw_input.Split("  ");
+
+            return RedirectToAction("moon-results");
         }
 
         [HttpGet("moon-results")]
