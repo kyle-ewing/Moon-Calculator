@@ -67,9 +67,9 @@ namespace MoonCalculator.Controllers
 
         [HttpGet("moon-results")]
         public IActionResult MoonResults() {
-
-            Dictionary<string, Moon> moonInfo = new Dictionary<string, Moon>();
-            Moon ore = new Moon();
+            Moon moons = new Moon();
+            Dictionary<string, Ore> moonInfo = new Dictionary<string, Ore>();
+            Ore ore = new Ore();
             string[] initDelimit = (string[]) TempData["Scan"];
             string currentMoon = "";
 
@@ -85,7 +85,8 @@ namespace MoonCalculator.Controllers
                     }
                     else {
                         //logic to handle multiple moon inputs not written yet
-                        moonInfo.Add(currentMoon, ore);
+                        moons.moonInfo.Add(currentMoon, ore);
+                        //moonInfo.Add(currentMoon, ore);
                         Console.WriteLine("does this ever get reached");
                         currentMoon = initDelimit[i];
                     }
@@ -95,18 +96,19 @@ namespace MoonCalculator.Controllers
                 }
 
                 if(i+1 == initDelimit.Length) {
-                    moonInfo.Add(currentMoon, ore);
+                    moons.moonInfo.Add(currentMoon, ore);
+                    //moonInfo.Add(currentMoon, ore);
                 }
             }
 
-            foreach(KeyValuePair<string, Moon> moon in moonInfo) {
+            foreach(KeyValuePair<string, Ore> moon in moons.moonInfo) {
                 Console.WriteLine(moon.Key + ":");
                 foreach(KeyValuePair<string, string> ores in moon.Value.oreInfo) {
                     Console.WriteLine(ores.Key + ", " + ores.Value);
                 }
             }
 
-            return View();
+            return View(moons);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,1 +1,10 @@
 <h1>Success</h1>
+@model MoonCalculator.Models.Moon;
+@{ 
+    foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
+        <h2>@moon.Key</h2>
+        foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
+            <p>@ore.Key : @ore.Value</p>
+        }
+    }
+}
