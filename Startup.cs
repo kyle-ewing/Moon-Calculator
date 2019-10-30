@@ -32,7 +32,7 @@ namespace MoonCalculator
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -54,9 +54,10 @@ namespace MoonCalculator
             app.UseCookiePolicy();
 
             var option = new RewriteOptions();
-            option.AddRedirect("^$", "Moon");
+            option.AddRedirect("^$", "moon");
             app.UseRewriter(option);
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
