@@ -2,9 +2,29 @@
 @model MoonCalculator.Models.Moon;
 @{ 
     foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
-        <h2>@moon.Key</h2>
-        foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
-            <p>@ore.Key : @ore.Value</p>
-        }
+        <h5>@moon.Key</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ore</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Prerefined Value</th>
+                    <th scope="col">Refined Value</th>
+                </tr>
+            </thead>
+            <tbody>
+             @{
+                foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
+                    <tr>
+                        <td>@ore.Key</td>
+                        <td>@ore.Value</td>
+                        <td>Placeholder</td>
+                        <td>Placeholder</td> 
+                    </tr>        
+                }
+             }   
+            </tbody>
+        </table>
     }
 }
