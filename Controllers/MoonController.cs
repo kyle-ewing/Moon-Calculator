@@ -7,7 +7,7 @@ using MoonCalculator.Models;
 
 namespace MoonCalculator.Controllers
 {
-    [Route("moon")]
+    [Route("Moon")]
     public class MoonController : Controller {
         [HttpGet("")]
         public IActionResult Index()

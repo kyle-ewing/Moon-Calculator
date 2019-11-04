@@ -1,3 +1,128 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        var scan = @Json.Serialize(@Model);
+        var jitaPrice;
+        var unrefinedValue;
+        console.log(scan);
+        const m3Month = 13440000;
+
+        function itemID(ore) {
+            const typeIDs = {
+                "Bitumens" : 45492,
+                "Brilliant Gneiss" : 46679,
+                "Chromite" : 45501,
+                "Cinnabar" : 45506,
+                "Cobaltite" : 45494,
+                "Coesite" : 45493,
+                "Cubic Bistot" : 46676,
+                "Dazzling Spodumain" : 46688,
+                "Euxenite" : 45495,
+                "Flawless Arkonor" : 46678,
+                "Glossy Scordite" : 46687,
+                "Immaculate Jaspet" : 46682,
+                "Jet Ochre" : 46675,
+                "Loparite" : 45512,
+                "Lustrous Hedbergite" : 46680,
+                "Monazite" : 45511,
+                "Opulent Pyroxeres" : 46686,
+                "Otavite" : 45498,
+                "Platinoid Omber" : 46684,
+                "Pellucid Crokite" : 46677,
+                "Pollucite" : 45504,
+                "Resplendant Kernite" : 46683,
+                "Scheelite" : 45497,
+                "Scintilatting Hemorphite" : 46681,
+                "Sparkling Plagioclase" : 46685,
+                "Sperrylite" : 45499,
+                "Stable Veldspar" : 46689,
+                "Sylvite" : 45491,
+                "Titanite" : 45496,
+                "Vanadinite" : 45500,
+                "Xenotime" : 45510,
+                "Ytterbite" : 45513,
+                "Zeolites" : 45490,
+                "Zircon" : 45503                
+            }
+            return typeIDs[ore];
+        }
+
+        function m3PerUnit(ore) {
+            const orem3 = {
+                "Bitumens" : 10,
+                "Brilliant Gneiss" : 5,
+                "Chromite" : 10,
+                "Cinnabar" : 10,
+                "Cobaltite" : 10,
+                "Coesite" : 10,
+                "Cubic Bistot" : 16,
+                "Dazzling Spodumain" : 16,
+                "Euxenite" : 10,
+                "Flawless Arkonor" : 16,
+                "Glossy Scordite" : 0.15,
+                "Immaculate Jaspet" : 2,
+                "Jet Ochre" : 8,
+                "Loparite" : 10,
+                "Lustrous Hedbergite" : 3,
+                "Monazite" : 10,
+                "Opulent Pyroxeres" : 0.30,
+                "Otavite" : 10,
+                "Platinoid Omber" : 0.60,
+                "Pellucid Crokite" : 16,
+                "Pollucite" : 10,
+                "Resplendant Kernite" : 1.20,
+                "Scheelite" : 10,
+                "Scintilatting Hemorphite" : 3,
+                "Sparkling Plagioclase" : 0.35,
+                "Sperrylite" : 10,
+                "Stable Veldspar" : 0.10,
+                "Sylvite" : 10,
+                "Titanite" : 10,
+                "Vanadinite" : 10,
+                "Xenotime" : 10,
+                "Ytterbite" : 10,
+                "Zeolites" : 10,
+                "Zircon" : 10     
+            }
+            return orem3[ore];
+        }
+
+        //console.log(scan.moonInfo["Balle III - Moon 8"].oreInfo);
+
+        for(var moonInfo in scan) {
+            //console.log(key + " : " + scan[key]);
+            for(var ore in scan[moonInfo]) {
+                //console.log(ore + " : " + scan[key][ore]);
+                var oreInfo = scan[moonInfo][ore];
+                for(trash in oreInfo) {
+                    var realOreInfo = oreInfo[trash];
+                    for(oreType in realOreInfo) {
+                        //console.log(oreType + ": " + realOreInfo[oreType]);
+                        var id = itemID(oreType);
+                        //console.log(itemID(oreType));
+
+                        $.ajax({
+                            url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + id,
+                            type : "get",
+                            async : false,
+                            success : function(data) {
+                                jitaPrice = data[id].sell.weightedAverage;
+                                unrefinedValue = ((m3Month*realOreInfo[oreType]) / m3PerUnit(oreType)) * jitaPrice;
+                                unrefinedValue = unrefinedValue.toFixed(2);
+                                console.log(oreType + ": " + jitaPrice);
+                                console.log(unrefinedValue);
+                                document.getElementById(oreType + " " + realOreInfo[oreType]).innerHTML = unrefinedValue;
+                            }
+                        }); 
+                    }
+                }
+            }
+        }
+    });
+
+
+</script>
+
+
 <h1>Success</h1>
 @model MoonCalculator.Models.Moon;
 @{ 
@@ -9,7 +134,7 @@
                 <tr>
                     <th scope="col">Ore</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Prerefined Value</th>
+                    <th scope="col">Unrefined Value</th>
                     <th scope="col">Refined Value</th>
                 </tr>
             </thead>
@@ -17,9 +142,9 @@
              @{
                 foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
                     <tr>
-                        <td>@ore.Key</td>
-                        <td>@ore.Value</td>
-                        <td>Placeholder</td>
+                        <td class="@ore.Key">@ore.Key</td>
+                        <td class="@ore.Value">@ore.Value</td>
+                        <td id="@ore.Key @ore.Value">Placeholder</td>
                         <td>Placeholder</td> 
                     </tr>        
                 }
