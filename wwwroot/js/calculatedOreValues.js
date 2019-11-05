@@ -10,24 +10,26 @@ $(document).ready(function() {
     for(var moonInfo in scan) {
         //console.log(key + " : " + scan[key]);
         for(var ore in scan[moonInfo]) {
-            //console.log(ore + " : " + scan[key][ore]);
+            console.log(ore + " : " + scan[key][ore]);
             var oreInfo = scan[moonInfo][ore];
             for(trash in oreInfo) {
                 var realOreInfo = oreInfo[trash];
                 for(oreType in realOreInfo) {
-                    //console.log(oreType + ": " + realOreInfo[oreType]);
-                    var id = itemID(oreType);
+                    console.log(oreType + ": " + realOreInfo[oreType]);
+                    var OreID = itemID(oreType);
                     //console.log(itemID(oreType));
+                    console.log(oreType);
+                    console.log(mineralsPerBatch(oreType));
 
                     $.ajax({
-                        url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + id,
+                        url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + OreID,
                         type : "get",
                         async : false,
                         success : function(data) {
-                            jitaPrice = data[id].sell.weightedAverage;
+                            jitaPrice = data[OreID].sell.weightedAverage;
 
                             if(jitaPrice == 0) {
-                                jitaPrice = data[id].buy.percentile;
+                                jitaPrice = data[OreID].buy.percentile;
                             }
 
                             unrefinedValue = ((m3Month*realOreInfo[oreType]) / m3PerUnit(oreType)) * jitaPrice;

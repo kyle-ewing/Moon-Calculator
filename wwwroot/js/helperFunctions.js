@@ -62,6 +62,11 @@ function itemID(typeName) {
         "Zircon" : 45503,
         "Zydrine" : 39                
     }
+
+    if(!typeIDs.hasOwnProperty(typeName)) {
+        console.log("Misspelled Key Name"); 
+    }
+
     return typeIDs[typeName];
 }
 
@@ -323,6 +328,7 @@ function mineralsPerBatch(ore) {
             "Hafnium" : 50
         } 
     }
+    return batch[ore];
 }
 
 function refinedValue(ore, quantity) {
