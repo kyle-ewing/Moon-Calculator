@@ -77,3 +77,231 @@ function m3PerUnit(ore) {
     }
     return orem3[ore];
 }
+
+function mineralsPerBatch(ore) {
+    const batch = {
+        "Bitumens" : {
+            "Tritanium" : 6000,
+            "Pyerite" : 6000,
+            "Mexallon" : 400,
+            "Hydrocarbons" : 65
+        },
+        "Brilliant Gneiss" : {
+            "Pyerite" : 2530,
+            "Mexallon" : 2760,
+            "Isogen" : 345
+        },
+        "Chromite" : {
+            "Pyerite" : 5000,
+            "Mexallon" : 1250,
+            "Isogen" : 50,
+            "Hydrocarbons" : 10,
+            "Chromium" : 40
+        },
+        "Cinnabar" : {
+            "Mexallon" : 1500,
+            "Isogen" : 750,
+            "Megacyte" : 50,
+            "Evaporite Deposits" : 15,
+            "Tungsten" : 10,
+            "Mercury" : 50
+        },
+        "Cobaltite" : {
+            "Tritanium" : 7500,
+            "Pyerite" : 10000,
+            "Mexallon" : 500,
+            "Cobalt" : 40
+        },
+        "Coesite" : {
+            "Tritanium" : 6000,
+            "Pyerite" : 2000,
+            "Mexallon" : 400,
+            "Silicates" : 66
+        },
+        "Cubic Bistot" : {
+            "Pyerite" : 13800,
+            "Zydrine" : 518,
+            "Megacyte" : 115
+        },
+        "Dazzling Spodumain" : {
+            "Tritanium" : 64400,
+            "Pyerite" : 13858,
+            "Mexallon" : 2415,
+            "Isogen" : 518
+        },
+        "Euxenite" : {
+            "Tritanium" : 10000,
+            "Pyerite" : 7500,
+            "Mexallon" : 500,
+            "Scandium" : 40
+        },
+        "Flawless Arkonor" : {
+            "Tritanium" : 25300,
+            "Mexallon" : 2875,
+            "Megacyte" : 368
+        },
+        "Glossy Scordite" : {
+            "Tritanium" : 398,
+            "Pyerite" : 199
+        },
+        "Immaculate Jaspet" : {
+            "Mexallon" : 403,
+            "Nocxium" : 86,
+            "Zydrine" : 9
+        },
+        "Jet Ochre" : {
+            "Tritanium" : 11500,
+            "Isogen" : 1840,
+            "Nocxium" : 138
+        },
+        "Loparite" : {
+            "Nocxium" : 100,
+            "Zydrine" : 200,
+            "Megacyte" : 50,
+            "Hydrocarbons" : 20,
+            "Scandium" : 20,
+            "Platinum" : 10,
+            "Promethium" : 22
+        },
+        "Lustrous Hedbergite" : {
+            "Pyerite" : 1150,
+            "Isogen" : 230,
+            "Nocxium" : 115,
+            "Megacyte" : 22
+        },
+        "Monazite" : {
+            "Nocxium" : 50,
+            "Zydrine" : 150,
+            "Megacyte" : 150,
+            "Evaporite Deposits" : 20,
+            "Tungsten" : 20,
+            "Chromium" : 10,
+            "Neodymium" : 22
+        },
+        "Opulent Pyroxeres" : {
+            "Tritanium" : 404,
+            "Pyerite" : 29,
+            "Mexallon" : 58,
+            "Zydrine" : 6
+        },
+        "Otavite" : {
+            "Tritanium" : 5000,
+            "Mexallon" : 1500,
+            "Isogen" : 500,
+            "Nocxium" : 50,
+            "Atmospheric Gases" : 10,
+            "Cadmium" : 40
+        },
+        "Platinoid Omber" : {
+            "Tritanium" : 920,
+            "Pyerite" : 115,
+            "Isogen" : 98
+        },
+        "Pellucid Crokite" : {
+            "Tritanium" : 24150,
+            "Nocxium" : 874,
+            "Megacyte" : 155
+        },
+        "Pollucite" : {
+            "Mexallon" : 1250,
+            "Isogen" : 1000,
+            "Zydrine" : 50,
+            "Hydrocarbons" : 15,
+            "Scandium" : 10,
+            "Caesium" : 50
+        },
+        "Resplendant Kernite" : {
+            "Tritanium" : 154,
+            "Mexallon" : 307,
+            "Isogen" : 154
+        },
+        "Scheelite" : {
+            "Tritanium" : 12500,
+            "Pyerite" : 5000,
+            "Mexallon" : 500,
+            "Tungsten" : 40
+        },
+        "Scintilatting Hemorphite" : {
+            "Tritanium" : 2530,
+            "Isogen" : 115,
+            "Nocxium" : 138,
+            "Zydrine" : 17
+        },
+        "Sparkling Plagioclase" : {
+            "Tritanium" : 123,
+            "Pyerite" : 245,
+            "Mexallon" : 123
+        },
+        "Sperrylite" : {
+            "Tritanium" : 5000,
+            "Mexallon" : 1000,
+            "Isogen" : 1000,
+            "Zydrine" : 50,
+            "Evaporite Deposits" : 10,
+            "Platinum" : 40
+        },
+        "Stable Veldspar" : {
+            "Tritanium" : 477
+        },
+        "Sylvite" : {
+            "Tritanium" : 8000,
+            "Pyerite" : 4000,
+            "Mexallon" : 400,
+            "Evaporite Deposits" : 65
+        },
+        "Titanite" : {
+            "Tritanium" : 15000,
+            "Pyerite" : 2500,
+            "Mexallon" : 500,
+            "Titanium" : 40
+        },
+        "Vanadinite" : {
+            "Pyerite" : 5000,
+            "Mexallon" : 750,
+            "Isogen" : 1250,
+            "Zydrine" : 50,
+            "Silicates" : 10,
+            "Vanadium" : 40
+        },
+        "Xenotime" : {
+            "Nocxium" : 200,
+            "Zydrine" : 100,
+            "Megacyte" : 50,
+            "Atmospheric Gases" : 20,
+            "Cobalt" : 20,
+            "Vanadium" : 10,
+            "Dysprosium" : 22
+        },
+        "Ytterbite" : {
+            "Nocxium" : 50,
+            "Zydrine" : 100,
+            "Megacyte" : 200,
+            "Silicates" : 20,
+            "Titanium" : 20,
+            "Cadmium" : 10,
+            "Thulium" : 22
+        },
+        "Zeolites" : {
+            "Tritanium" : 4000,
+            "Pyerite" : 8000,
+            "Mexallon" : 400,
+            "Atmospheric Gases" : 65
+        },
+        "Zircon" : {
+            "Mexallon" : 1750,
+            "Isogen" : 500,
+            "Megacyte" : 50,
+            "Silicates" : 15,
+            "Titanium" : 10,
+            "Hafnium" : 50
+        } 
+    }
+}
+
+function refinedValue(ore, quantity) {
+    var refinedValue;
+
+
+
+    return refinedValue;
+}

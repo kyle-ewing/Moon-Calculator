@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var jitaPrice;
     var unrefinedValue;
+    var refinedValue;
     console.log(scan);
     const m3Month = 13440000;
 
@@ -24,6 +25,11 @@ $(document).ready(function() {
                         async : false,
                         success : function(data) {
                             jitaPrice = data[id].sell.weightedAverage;
+
+                            if(jitaPrice == 0) {
+                                jitaPrice = data[id].buy.percentile;
+                            }
+
                             unrefinedValue = ((m3Month*realOreInfo[oreType]) / m3PerUnit(oreType)) * jitaPrice;
                             unrefinedValue = unrefinedValue.toFixed(2);
                             document.getElementById(oreType + " " + realOreInfo[oreType]).innerHTML = unrefinedValue;
