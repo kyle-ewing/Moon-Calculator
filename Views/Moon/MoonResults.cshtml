@@ -2,7 +2,6 @@
 <script src="~/js/helperFunctions.js"></script>
 <script src="~/js/calculatedOreValues.js"></script>
 
-
 <h1>Success</h1>
 @model MoonCalculator.Models.Moon;
 @{ 
@@ -24,8 +23,8 @@
                     <tr>
                         <td class="@ore.Key">@ore.Key</td>
                         <td class="@ore.Value">@ore.Value</td>
-                        <td id="@ore.Key @ore.Value">N/A</td>
-                        <td>N/A</td> 
+                        <td id="@ore.Key @ore.Value Raw">N/A</td>
+                        <td id="@ore.Key @ore.Value Refined">N/A</td> 
                     </tr>        
                 }
              }   

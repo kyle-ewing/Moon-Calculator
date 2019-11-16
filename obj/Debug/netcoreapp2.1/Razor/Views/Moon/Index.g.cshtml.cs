@@ -62,7 +62,7 @@ using MoonCalculator.Models;
             WriteLiteral("\r\n<div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"6000\">\r\n    ");
             EndContext();
             BeginContext(151, 310, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "54b818a6dc974f9aa912f21be59c1f8c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b0e754fd0fa44ae2878a7eddb3f4bca6", async() => {
                 BeginContext(192, 262, true);
                 WriteLiteral(@"
         <div class=""form-group"">

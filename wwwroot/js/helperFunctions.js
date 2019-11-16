@@ -330,11 +330,3 @@ function mineralsPerBatch(ore) {
     }
     return batch[ore];
 }
-
-function refinedValue(ore, quantity) {
-    var refinedValue;
-
-
-
-    return refinedValue;
-}

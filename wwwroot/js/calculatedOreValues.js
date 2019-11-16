@@ -2,24 +2,24 @@ $(document).ready(function() {
     var jitaPrice;
     var unrefinedValue;
     var refinedValue;
-    console.log(scan);
     const m3Month = 13440000;
+
+    console.log(scan);
 
     //console.log(scan.moonInfo["Balle III - Moon 8"].oreInfo);
 
     for(var moonInfo in scan) {
         //console.log(key + " : " + scan[key]);
         for(var ore in scan[moonInfo]) {
-            console.log(ore + " : " + scan[key][ore]);
             var oreInfo = scan[moonInfo][ore];
             for(trash in oreInfo) {
                 var realOreInfo = oreInfo[trash];
                 for(oreType in realOreInfo) {
-                    console.log(oreType + ": " + realOreInfo[oreType]);
+                    refinedValue = 0;
                     var OreID = itemID(oreType);
-                    //console.log(itemID(oreType));
-                    console.log(oreType);
-                    console.log(mineralsPerBatch(oreType));
+                    var oreAmount = m3Month*realOreInfo[oreType] / m3PerUnit(oreType);
+                    console.log(oreAmount);
+                    //console.log(mineralsPerBatch(oreType));
 
                     $.ajax({
                         url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + OreID,
@@ -32,14 +32,31 @@ $(document).ready(function() {
                                 jitaPrice = data[OreID].buy.percentile;
                             }
 
-                            unrefinedValue = ((m3Month*realOreInfo[oreType]) / m3PerUnit(oreType)) * jitaPrice;
+                            unrefinedValue = oreAmount * jitaPrice;
                             unrefinedValue = unrefinedValue.toFixed(2);
-                            document.getElementById(oreType + " " + realOreInfo[oreType]).innerHTML = unrefinedValue;
+                            document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Raw").innerHTML = unrefinedValue;
                         }
                     }); 
+                    var mineralBatch = mineralsPerBatch(oreType);
+                    for(mineral in mineralBatch) {
+                        //console.log(mineralBatch[mineral]);
+                        var batches = oreAmount/100;
+                       // console.log(mineral + " ==== " +oreType);
+                        var mineralID = itemID(mineral);
+                        $.ajax({
+                            url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + mineralID,
+                            type : "get",
+                            async : false,
+                            success : function(data) {
+                                jitaPrice = data[mineralID].buy.weightedAverage;
+                                refinedValue += batches*mineralBatch[mineral]*jitaPrice;
+                            }
+                        });
+                    }
+                    refinedValue = refinedValue.toFixed(2);
+                    document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Refined").innerHTML = refinedValue;
                 }
             }
         }
     }
 });
-
