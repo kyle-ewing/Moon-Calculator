@@ -18,9 +18,9 @@ namespace MoonCalculator.Controllers
         [HttpPost("submit")]
         public IActionResult ScanSubmit(string raw_input) {
             //Console.WriteLine(raw_input);
-
-            
-            //string currentMoon = "";
+            if(raw_input == null || raw_input.Length < 70) {
+                return Redirect("Error");
+            }
 
             raw_input = raw_input.Remove(0,69);
 
@@ -31,36 +31,6 @@ namespace MoonCalculator.Controllers
             string[] initDelimit = raw_input.Split("  ");
 
             TempData["Scan"] = initDelimit;
-
-            // for(int i = 0; i < initDelimit.Length; i++) {
-            //     if(initDelimit[i].Contains("Moon")) {
-            //         if(currentMoon.Equals("")) {
-            //             initDelimit[i]= initDelimit[i].TrimEnd();
-            //             currentMoon = initDelimit[i];
-            //         }
-            //         else {
-            //             //logic to handle multiple moon inputs not written yet
-            //             moonInfo.Add(currentMoon, ore);
-            //             Console.WriteLine("does this ever get reached");
-            //             currentMoon = initDelimit[i];
-            //         }
-            //     }
-            //     else if(Char.IsLetter(initDelimit[i][0])) {
-            //         ore.oreInfo.Add(initDelimit[i], initDelimit[i+1]);
-            //     }
-
-            //     if(i+1 == initDelimit.Length) {
-            //         moonInfo.Add(currentMoon, ore);
-            //     }
-            // }
-
-            // foreach(KeyValuePair<string, Moon> moon in moonInfo) {
-            //     Console.WriteLine(moon.Value + ": asdasdasdasdasdas");
-            //     foreach(KeyValuePair<string, string> moonOre in moon.Value.oreInfo) {
-            //         Console.WriteLine(moonOre.Key + ", " + moonOre.Value);
-            //     }
-            // }
-
 
             return RedirectToAction("moon-results");
         }
@@ -73,9 +43,9 @@ namespace MoonCalculator.Controllers
             string[] initDelimit = (string[]) TempData["Scan"];
             string currentMoon = "";
 
-            // foreach(string s in data) {
-            //     Console.WriteLine(s);
-            // }
+            if(initDelimit == null) {
+                return Redirect("Error");
+            }
 
             for(int i = 0; i < initDelimit.Length; i++) {
                 if(initDelimit[i].Contains("Moon")) {
@@ -109,6 +79,11 @@ namespace MoonCalculator.Controllers
             }
 
             return View(moons);
+        }
+
+        [HttpGet("Error")]
+        public IActionResult badInput() {
+            return View("Error");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

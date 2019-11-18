@@ -28,3 +28,4 @@ C:\Users\KyleE\Documents\Personal\MoonCalculator\obj\Debug\netcoreapp2.1\MoonCal
 C:\Users\KyleE\Documents\Personal\MoonCalculator\obj\Debug\netcoreapp2.1\MoonCalculator.csproj.CopyComplete
 C:\Users\KyleE\Documents\Personal\MoonCalculator\obj\Debug\netcoreapp2.1\Razor\Views\Moon\Index.g.cshtml.cs
 C:\Users\KyleE\Documents\Personal\MoonCalculator\obj\Debug\netcoreapp2.1\Razor\Views\Moon\MoonResults.g.cshtml.cs
+C:\Users\KyleE\Documents\Personal\MoonCalculator\obj\Debug\netcoreapp2.1\Razor\Views\Moon\Error.g.cshtml.cs
