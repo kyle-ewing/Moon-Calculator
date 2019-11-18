@@ -26,7 +26,7 @@ $(document).ready(function() {
                         type : "get",
                         async : false,
                         success : function(data) {
-                            jitaPrice = data[OreID].sell.weightedAverage;
+                            jitaPrice = data[OreID].sell.percentile;
 
                             if(jitaPrice == 0) {
                                 jitaPrice = data[OreID].buy.percentile;
@@ -34,6 +34,7 @@ $(document).ready(function() {
 
                             unrefinedValue = oreAmount * jitaPrice;
                             unrefinedValue = unrefinedValue.toFixed(2);
+                            unrefinedValue = unrefinedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                             document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Raw").innerHTML = unrefinedValue;
                         }
                     }); 
@@ -48,12 +49,13 @@ $(document).ready(function() {
                             type : "get",
                             async : false,
                             success : function(data) {
-                                jitaPrice = data[mineralID].buy.weightedAverage;
+                                jitaPrice = data[mineralID].buy.percentile;
                                 refinedValue += batches*mineralBatch[mineral]*jitaPrice;
                             }
                         });
                     }
                     refinedValue = refinedValue.toFixed(2);
+                    refinedValue = refinedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Refined").innerHTML = refinedValue;
                 }
             }
