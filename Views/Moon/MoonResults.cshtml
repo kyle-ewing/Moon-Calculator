@@ -8,7 +8,7 @@
     foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
         <h5>@moon.Key</h5>
 
-        <table class="table">
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Ore</th>
@@ -32,3 +32,4 @@
         </table>
     }
 }
+<a href="/moon"><button type="button" class="btn btn-dark">New Scan</button></a>

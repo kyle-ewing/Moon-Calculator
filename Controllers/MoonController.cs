@@ -81,7 +81,7 @@ namespace MoonCalculator.Controllers
             return View(moons);
         }
 
-        [HttpGet("Error")]
+        [HttpGet("error")]
         public IActionResult badInput() {
             return View("Error");
         }

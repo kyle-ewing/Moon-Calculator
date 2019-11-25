@@ -26,10 +26,10 @@ $(document).ready(function() {
                         type : "get",
                         async : false,
                         success : function(data) {
-                            jitaPrice = data[OreID].sell.percentile;
+                            jitaPrice = data[OreID].buy.percentile;
 
                             if(jitaPrice == 0) {
-                                jitaPrice = data[OreID].buy.percentile;
+                                jitaPrice = data[OreID].sell.percentile;
                             }
 
                             unrefinedValue = oreAmount * jitaPrice;
