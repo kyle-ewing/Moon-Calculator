@@ -17,19 +17,23 @@ namespace MoonCalculator.Controllers
 
         [HttpPost("submit")]
         public IActionResult ScanSubmit(string raw_input) {
-            //Console.WriteLine(raw_input);
+            //Basic error handling for bad/no input;
             if(raw_input == null || raw_input.Length < 70) {
                 return Redirect("Error");
             }
 
+            //Strip column names from input
             raw_input = raw_input.Remove(0,69);
 
+            //Normalize spacing between input to easily break down
             while(raw_input.IndexOf("	") >= 0) {
                 raw_input = raw_input.Replace("	", "  ");
             }
 
+            //Create array based on delimited spacing
             string[] initDelimit = raw_input.Split("  ");
 
+            //Send delimited array to results page to group by moon
             TempData["Scan"] = initDelimit;
 
             return RedirectToAction("moon-results");
@@ -47,6 +51,7 @@ namespace MoonCalculator.Controllers
                 return Redirect("Error");
             }
 
+            //Group ores/quantities to a moon, add each moon to a dictionary
             for(int i = 0; i < initDelimit.Length; i++) {
                 if(initDelimit[i].Contains("Moon")) {
                     if(currentMoon.Equals("")) {
@@ -71,6 +76,7 @@ namespace MoonCalculator.Controllers
                 }
             }
 
+            //Debugging
             foreach(KeyValuePair<string, Ore> moon in moons.moonInfo) {
                 Console.WriteLine(moon.Key + ":");
                 foreach(KeyValuePair<string, string> ores in moon.Value.oreInfo) {

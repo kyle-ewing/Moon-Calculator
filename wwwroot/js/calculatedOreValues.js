@@ -2,12 +2,15 @@ $(document).ready(function() {
     var jitaPrice;
     var unrefinedValue;
     var refinedValue;
+
+    //Total m3 of ore from a month long extraction
     const m3Month = 13440000;
 
     console.log(scan);
 
     //console.log(scan.moonInfo["Balle III - Moon 8"].oreInfo);
 
+    //Convoluted excess looping to reach each ore and it's quantity to attain it's value
     for(var moonInfo in scan) {
         //console.log(key + " : " + scan[key]);
         for(var ore in scan[moonInfo]) {
@@ -21,6 +24,7 @@ $(document).ready(function() {
                     console.log(oreAmount);
                     //console.log(mineralsPerBatch(oreType));
 
+                    //API call for unrefined ore value based on percentile in The Forge (Region)
                     $.ajax({
                         url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + OreID,
                         type : "get",
@@ -33,17 +37,23 @@ $(document).ready(function() {
                             }
 
                             unrefinedValue = oreAmount * jitaPrice;
+
+                            //Round value to 2 decimals
                             unrefinedValue = unrefinedValue.toFixed(2);
+
+                            //Commas added to value
                             unrefinedValue = unrefinedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            
+                            //Update HTML with unrefined value
                             document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Raw").innerHTML = unrefinedValue;
                         }
                     }); 
                     var mineralBatch = mineralsPerBatch(oreType);
                     for(mineral in mineralBatch) {
-                        //console.log(mineralBatch[mineral]);
                         var batches = oreAmount/100;
-                       // console.log(mineral + " ==== " +oreType);
                         var mineralID = itemID(mineral);
+
+                        //Call for individual mineral prices, used to add up for refined value. Based on percentile buy orders in The Forge (Region)
                         $.ajax({
                             url : "https://market.fuzzwork.co.uk/aggregates/?region=10000002&types=" + mineralID,
                             type : "get",
@@ -54,8 +64,13 @@ $(document).ready(function() {
                             }
                         });
                     }
+                    //Round value to 2 decimals
                     refinedValue = refinedValue.toFixed(2);
+
+                    //Commas added to value
                     refinedValue = refinedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    
+                    //Update HTML with refined value
                     document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Refined").innerHTML = refinedValue;
                 }
             }

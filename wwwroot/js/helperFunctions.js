@@ -1,3 +1,4 @@
+//ID of ore and minerals when calling EVE's API
 function itemID(typeName) {
     const typeIDs = {
         "Atmospheric Gases" : 16634,
@@ -70,6 +71,7 @@ function itemID(typeName) {
     return typeIDs[typeName];
 }
 
+//Weight of each individual unit of ore
 function m3PerUnit(ore) {
     const orem3 = {
         "Bitumens" : 10,
@@ -110,6 +112,7 @@ function m3PerUnit(ore) {
     return orem3[ore];
 }
 
+//Minerals per 100 units of ore assuming 100% refining
 function mineralsPerBatch(ore) {
     const batch = {
         "Bitumens" : {
