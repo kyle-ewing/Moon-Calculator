@@ -4,7 +4,7 @@
 
 <h1>Results:</h1>
 @model MoonCalculator.Models.Moon;
-@{ 
+@{
     foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
         <h5>@moon.Key</h5>
 

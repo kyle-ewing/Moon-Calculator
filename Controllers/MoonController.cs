@@ -33,6 +33,19 @@ namespace MoonCalculator.Controllers
             //Create array based on delimited spacing
             string[] initDelimit = raw_input.Split("  ");
 
+            //Fix improper delimiting when breaking down all but the first moon
+            int counter = 0;
+            for(int i = 0; i < initDelimit.Length; i++) {
+                if(initDelimit[i].Contains("Moon")) {
+                    if(counter == 0) {
+                        counter++;
+                    }
+                    else {
+                        initDelimit[i] = initDelimit[i].Remove(0,8);
+                    }   
+                }
+            }
+
             //Send delimited array to results page to group by moon
             TempData["Scan"] = initDelimit;
 
@@ -42,37 +55,31 @@ namespace MoonCalculator.Controllers
         [HttpGet("moon-results")]
         public IActionResult MoonResults() {
             Moon moons = new Moon();
-            Dictionary<string, Ore> moonInfo = new Dictionary<string, Ore>();
             Ore ore = new Ore();
             string[] initDelimit = (string[]) TempData["Scan"];
             string currentMoon = "";
+            var tempMoon = new List<Ore>();
 
             if(initDelimit == null) {
                 return Redirect("Error");
             }
 
-            //Group ores/quantities to a moon, add each moon to a dictionary
+            //Break moons and their respective ores down into categories
             for(int i = 0; i < initDelimit.Length; i++) {
                 if(initDelimit[i].Contains("Moon")) {
                     if(currentMoon.Equals("")) {
+                        Console.WriteLine("check");
                         initDelimit[i]= initDelimit[i].TrimEnd();
                         currentMoon = initDelimit[i];
+                        moons.moonInfo.Add(currentMoon, new Ore());
                     }
                     else {
-                        //logic to handle multiple moon inputs not written yet
-                        moons.moonInfo.Add(currentMoon, ore);
-                        //moonInfo.Add(currentMoon, ore);
-                        Console.WriteLine("does this ever get reached");
                         currentMoon = initDelimit[i];
+                        moons.moonInfo.Add(currentMoon, new Ore());
                     }
                 }
                 else if(Char.IsLetter(initDelimit[i][0])) {
-                    ore.oreInfo.Add(initDelimit[i], initDelimit[i+1]);
-                }
-
-                if(i+1 == initDelimit.Length) {
-                    moons.moonInfo.Add(currentMoon, ore);
-                    //moonInfo.Add(currentMoon, ore);
+                    moons.moonInfo[currentMoon].oreInfo.Add(initDelimit[i], initDelimit[i+1]);
                 }
             }
 
