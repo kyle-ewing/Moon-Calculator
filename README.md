@@ -6,15 +6,9 @@ Tool designed to calculate the approximate value of a moon in the MMO game Eve O
 
 ### What it can currently do
 
-Take in a single moon input and display the raw and refined value of each individual ore
-
-### Known Issues
-* Multiple inputs will display every ore in each table
-* Multiple inputs will cause the planet and moon name to have the moon id appending in front of it (delimiting error)
-* Repeating the same ore type with multiple inputs will cause an error
+Take in multiple moons as input and display the raw and refined value of each individual ore
 
 ### Future additions
-* Allow for multiple inputs with no errors
 * Set up database to retain information for all inputted moons
 * Better error handling
 
