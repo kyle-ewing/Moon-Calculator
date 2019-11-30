@@ -67,7 +67,6 @@ $(document).ready(function() {
 
                     //Add total value from all ores
                     totalValue += refinedValue;
-                    console.log(totalValue);
 
                     //Round value to 2 decimals
                     refinedValue = refinedValue.toFixed(2);
