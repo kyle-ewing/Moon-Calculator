@@ -43,7 +43,7 @@ function itemID(typeName) {
         "Resplendant Kernite" : 46683,
         "Scandium" : 16639,
         "Scheelite" : 45497,
-        "Scintilatting Hemorphite" : 46681,
+        "Scintillating Hemorphite" : 46681,
         "Silicates" : 16636,
         "Sparkling Plagioclase" : 46685,
         "Sperrylite" : 45499,
@@ -97,7 +97,7 @@ function m3PerUnit(ore) {
         "Pollucite" : 10,
         "Resplendant Kernite" : 1.20,
         "Scheelite" : 10,
-        "Scintilatting Hemorphite" : 3,
+        "Scintillating Hemorphite" : 3,
         "Sparkling Plagioclase" : 0.35,
         "Sperrylite" : 10,
         "Stable Veldspar" : 0.10,
@@ -256,7 +256,7 @@ function mineralsPerBatch(ore) {
             "Mexallon" : 500,
             "Tungsten" : 40
         },
-        "Scintilatting Hemorphite" : {
+        "Scintillating Hemorphite" : {
             "Tritanium" : 2530,
             "Isogen" : 115,
             "Nocxium" : 138,

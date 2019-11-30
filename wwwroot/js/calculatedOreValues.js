@@ -21,7 +21,6 @@ $(document).ready(function() {
                     refinedValue = 0;
                     var OreID = itemID(oreType);
                     var oreAmount = m3Month*realOreInfo[oreType] / m3PerUnit(oreType);
-                    console.log(oreAmount);
                     //console.log(mineralsPerBatch(oreType));
 
                     //API call for unrefined ore value based on percentile in The Forge (Region)
