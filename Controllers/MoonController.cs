@@ -95,8 +95,13 @@ namespace MoonCalculator.Controllers
         }
 
         [HttpGet("error")]
-        public IActionResult badInput() {
+        public IActionResult BadInput() {
             return View("Error");
+        }
+
+        [HttpGet("how-to")]
+        public IActionResult HowTo() {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
