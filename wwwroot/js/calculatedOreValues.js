@@ -2,6 +2,7 @@ $(document).ready(function() {
     var jitaPrice;
     var unrefinedValue;
     var refinedValue;
+    var totalValue;
 
     //Total m3 of ore from a month long extraction
     const m3Month = 13440000;
@@ -13,15 +14,15 @@ $(document).ready(function() {
     //Convoluted excess looping to reach each ore and it's quantity to attain it's value
     for(var moonInfo in scan) {
         //console.log(key + " : " + scan[key]);
-        for(var ore in scan[moonInfo]) {
-            var oreInfo = scan[moonInfo][ore];
-            for(trash in oreInfo) {
-                var realOreInfo = oreInfo[trash];
+        for(var moon in scan[moonInfo]) {
+            totalValue = 0;
+            var oreInfoObject = scan[moonInfo][moon];
+            for(oreInfo in oreInfoObject) {
+                var realOreInfo = oreInfoObject[oreInfo];
                 for(oreType in realOreInfo) {
                     refinedValue = 0;
                     var OreID = itemID(oreType);
                     var oreAmount = m3Month*realOreInfo[oreType] / m3PerUnit(oreType);
-                    //console.log(mineralsPerBatch(oreType));
 
                     //API call for unrefined ore value based on percentile in The Forge (Region)
                     $.ajax({
@@ -63,6 +64,11 @@ $(document).ready(function() {
                             }
                         });
                     }
+
+                    //Add total value from all ores
+                    totalValue += refinedValue;
+                    console.log(totalValue);
+
                     //Round value to 2 decimals
                     refinedValue = refinedValue.toFixed(2);
 
@@ -72,7 +78,16 @@ $(document).ready(function() {
                     //Update HTML with refined value
                     document.getElementById(oreType + " " + realOreInfo[oreType] + " " + "Refined").innerHTML = refinedValue;
                 }
+
             }
+
+            //Round value to 2 decimals
+            totalValue = totalValue.toFixed(2);
+
+            //Commas added to value
+            totalValue = totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            document.getElementById(moon + " Value").innerHTML = "Total Refined Value: " +  totalValue;
         }
     }
 });
