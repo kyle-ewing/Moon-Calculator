@@ -65,6 +65,9 @@ $(document).ready(function() {
                         });
                     }
 
+                    //Adjust refined value for 85% refining efficiency
+                    refinedValue= refinedValue*0.85;
+
                     //Add total value from all ores
                     totalValue += refinedValue;
 
