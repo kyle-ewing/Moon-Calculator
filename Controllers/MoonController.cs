@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MoonCalculator.Models;
@@ -66,21 +67,27 @@ namespace MoonCalculator.Controllers
 
             //Break moons and their respective ores down into categories
             for(int i = 0; i < initDelimit.Length; i++) {
-                if(initDelimit[i].Contains("Moon")) {
-                    if(currentMoon.Equals("")) {
-                        Console.WriteLine("check");
-                        initDelimit[i]= initDelimit[i].TrimEnd();
-                        currentMoon = initDelimit[i];
-                        moons.moonInfo.Add(currentMoon, new Ore());
+                if(initDelimit[i].Length > 0) {
+                    if(initDelimit[i].Contains("Moon")) {
+                        if(currentMoon.Equals("")) {
+                            Console.WriteLine("check");
+                            initDelimit[i]= initDelimit[i].TrimEnd();
+                            currentMoon = initDelimit[i];
+                            moons.moonInfo.Add(currentMoon, new Ore());
+                        }
+                        else {
+                            currentMoon = initDelimit[i];
+                            moons.moonInfo.Add(currentMoon, new Ore());
+                        }
                     }
-                    else {
-                        currentMoon = initDelimit[i];
-                        moons.moonInfo.Add(currentMoon, new Ore());
+                    else if(Char.IsLetter(initDelimit[i][0])) {
+                        moons.moonInfo[currentMoon].oreInfo.Add(initDelimit[i], initDelimit[i+1]);
                     }
                 }
-                else if(Char.IsLetter(initDelimit[i][0])) {
-                    moons.moonInfo[currentMoon].oreInfo.Add(initDelimit[i], initDelimit[i+1]);
+                else {
+                    return Redirect("Error");
                 }
+
             }
 
             //Debugging
