@@ -6,39 +6,43 @@
 <script src="~/js/helperFunctions.js"></script>
 <script src="~/js/calculatedOreValues.js"></script>
 
-<h1 class="font-weight-bold">Scan Results:</h1>
-@model MoonCalculator.Models.Moon;
-@{
-    foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
-        <div class ="p-1">
-            <h5 class="ml-3">@moon.Key</h5>
+<div hidden id="spinner"></div>
+<div hidden id="results">
+    <h1 class="font-weight-bold">Scan Results:</h1>
+    @model MoonCalculator.Models.Moon;
+    @{
+        foreach(KeyValuePair<string, Ore> moon in @Model.moonInfo) {
+            <div class ="p-1">
+                <h5 class="ml-3">@moon.Key</h5>
 
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th style="width: 25%" scope="col">Ore</th>
-                        <th style="width: 25%" scope="col">Quantity</th>
-                        <th style="width: 25%" scope="col">Unrefined Value</th>
-                        <th style="width: 25%" scope="col">Refined Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @{
-                    foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
+                <table class="table table-striped table-bordered">
+                    <thead>
                         <tr>
-                            <td class="@ore.Key">@ore.Key</td>
-                            <td class="@ore.Value">@ore.Value</td>
-                            <td id="@ore.Key @ore.Value Raw">N/A</td>
-                            <td id="@ore.Key @ore.Value Refined">N/A</td> 
-                        </tr>        
-                    }
-                }   
-                </tbody>
-            </table>
-            <p class="font-weight-bold text-right mr-4" id="@moon.Key Value"></p>
-        </div>
+                            <th style="width: 25%" scope="col">Ore</th>
+                            <th style="width: 25%" scope="col">Quantity</th>
+                            <th style="width: 25%" scope="col">Unrefined Value</th>
+                            <th style="width: 25%" scope="col">Refined Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @{
+                        foreach(KeyValuePair<string, string> ore in moon.Value.oreInfo) {
+                            <tr>
+                                <td class="@ore.Key">@ore.Key</td>
+                                <td class="@ore.Value">@ore.Value</td>
+                                <td id="@ore.Key @ore.Value Raw">N/A</td>
+                                <td id="@ore.Key @ore.Value Refined">N/A</td> 
+                            </tr>        
+                        }
+                    }   
+                    </tbody>
+                </table>
+                <p class="font-weight-bold text-right mr-4" id="@moon.Key Value"></p>
+            </div>
 
 
+        }
     }
-}
-<a href="/moon"><button type="button" class="btn btn-dark">New Scan</button></a>
+    <a href="/moon"><button type="button" class="btn btn-dark">New Scan</button></a>
+
+</div>

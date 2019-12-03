@@ -7,9 +7,13 @@ $(document).ready(function() {
     //Total m3 of ore from a month long extraction
     const m3Month = 13440000;
 
-    console.log(scan);
+    const spinner = document.getElementById("spinner");
+    const results = document.getElementById("results");
 
-    //console.log(scan.moonInfo["Balle III - Moon 8"].oreInfo);
+    //console.log(scan);
+
+    //Show spinner until API call has finished
+    spinner.removeAttribute('hidden');
 
     //Convoluted excess looping to reach each ore and it's quantity to attain it's value
     for(var moonInfo in scan) {
@@ -92,4 +96,8 @@ $(document).ready(function() {
             document.getElementById(moon + " Value").innerHTML = "Total Refined Value: " +  totalValue;
         }
     }
+
+    //Remove spinner and who results once API call has finished
+    spinner.setAttribute("hidden", "");
+    results.removeAttribute("hidden");
 });
